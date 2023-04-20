@@ -1,26 +1,39 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     namespace 'br.com.monteoliva.githubuserslist'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "br.com.monteoliva.githubuserslist"
         minSdk 21
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        targetSdk 33
+        versionCode 100
+        versionName "1.0.0"
+        multiDexEnabled true
+        setProperty("archivesBaseName", "GitHuUsersbList-$versionName")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        dataBinding = true
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "API_URL", "https://api.github.com"
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "API_URL", "https://api.github.com"
         }
     }
     compileOptions {
@@ -33,12 +46,79 @@ android {
 }
 
 dependencies {
+    // Material Design
+    implementation "com.google.android.material:material:$material_design"
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    // AndroidX
+    implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "androidx.cardview:cardview:$cardview_version"
+    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation "androidx.recyclerview:recyclerview:1.3.0"
+    implementation "androidx.viewpager2:viewpager2:1.1.0-beta01"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // DataViewBinding (JetPack)
+    implementation "androidx.databinding:databinding-ktx:8.0.0"
+    implementation "androidx.databinding:databinding-runtime:8.0.0"
+
+    // Navigation Component (JetPack)
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+
+    // Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    // Feature module Support (Navigation)
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    // Jetpack Compose Integration (Navigation)
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // Dagger HILT
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Test viewModel & LiveData in package "test"
+    testImplementation "androidx.test:core-ktx:1.5.0"
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation "androidx.test.ext:junit:1.1.5"
+    testImplementation "androidx.test.ext:junit-ktx:1.1.5"
+
+    // Test viewModel & LiveData in package "androidTest"
+    androidTestImplementation "androidx.test:core-ktx:1.5.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
+    androidTestImplementation "androidx.test.ext:junit:1.1.5"
+    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.5"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+
+    // Tester
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
+    testImplementation "junit:junit:4.13.2"
+
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
