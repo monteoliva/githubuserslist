@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBackground">#50566E</color>
+    <color name="colorField">#D3D3D3</color>
+    <color name="colorBlueOpacity">#5779C1</color>
+</resources>

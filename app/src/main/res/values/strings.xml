@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Git Hub Users List</string>
+    <string name="progress_wait">Aguarde&#8230;</string>
+    <string name="btn_cancel" translatable="true">CANCELAR</string>
+    <string name="btn_ok" translatable="true">OK</string>
+    <string name="btn_exit" translatable="true">SAIR</string>
+    <string name="btn_close" translatable="true">FECHAR</string>
+    <string name="btn_error">ERRO</string>
+    <string name="title">Repositórios GitHub</string>
+    <string name="txt_stars">Stars</string>
+    <string name="txt_forks">Forks</string>
+    <string name="txt_owner_name">Owner Name</string>
+    <string name="txt_repo_name">Repositório:</string>
+    <string name="content_description_item">Image Item</string>
+    <string name="error">Erro no sistema. Entre em contato com o administrador</string>
+    <string name="error1">Falha de comunicação com o Servidor</string>
+    <string name="error2">Ocorreu uma falha desconhecida</string>
+    <string name="txt_find">Pesquisar usuário</string>
 </resources>
