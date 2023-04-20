@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.KeyEvent
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
@@ -13,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
 import br.com.monteoliva.githubuserslist.R
 import br.com.monteoliva.githubuserslist.repository.core.extensions.leftToRight
@@ -92,6 +94,14 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
                 dialogInterface.dismiss()
             }
             create().show()
+        }
+    }
+
+    fun replaceFragment(@IdRes resourceId: Int, fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(resourceId, fragment, TAG)
+            disallowAddToBackStack()
+            commit()
         }
     }
 

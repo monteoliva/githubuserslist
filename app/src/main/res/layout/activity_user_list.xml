@@ -15,40 +15,30 @@
             android:background="@android:color/transparent">
             <include
                 android:id="@+id/app_bar"
-                layout="@layout/app_bar" />
+                layout="@layout/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/idSV"
+                android:id="@+id/search_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:inputType="text"
-                android:imeOptions="actionSearch"
-                android:iconifiedByDefault="false"
-                android:padding="@dimen/dimens_4"
+                android:layout_margin="@dimen/dimens_4"
                 android:hint="@string/txt_find"
+                android:queryHint="@string/txt_find"
+                android:theme="@style/search_field"
                 android:background="@drawable/box_field" />
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefresh_list"
+            <FrameLayout
+                android:id="@+id/list_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_marginTop="@dimen/dimens_5">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false" />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-
-
+                android:layout_marginTop="@dimen/dimens_5"
+                android:layout_marginBottom="@dimen/dimens_5"
+                android:background="@android:color/transparent" />
 
         </LinearLayout>
-
-
 
         <br.com.monteoliva.githubuserslist.ui.components.Progress
             android:id="@+id/progress_list"

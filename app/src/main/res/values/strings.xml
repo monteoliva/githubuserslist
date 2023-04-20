@@ -16,4 +16,7 @@
     <string name="error1">Falha de comunicação com o Servidor</string>
     <string name="error2">Ocorreu uma falha desconhecida</string>
     <string name="txt_find">Pesquisar usuário</string>
+
+    <!-- -->
+    <string name="title_user_list">Lista de Usuários</string>
 </resources>

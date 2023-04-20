@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimens_8"
     android:background="@drawable/box_field">
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_list"
@@ -13,7 +14,9 @@
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
         android:padding="@dimen/dimens_4"
-        android:queryHint="@string/txt_find" />
+        android:hint="@string/txt_find"
+        android:queryHint="@string/txt_find"
+        style="@style/search_field" />
 
 </LinearLayout>
 
