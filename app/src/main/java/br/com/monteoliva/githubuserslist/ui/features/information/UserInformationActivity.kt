@@ -1,5 +1,6 @@
 package br.com.monteoliva.githubuserslist.ui.features.information
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 
@@ -7,12 +8,12 @@ import br.com.monteoliva.githubuserslist.R
 import br.com.monteoliva.githubuserslist.databinding.ActivityUserInformationBinding
 import br.com.monteoliva.githubuserslist.repository.core.extensions.*
 import br.com.monteoliva.githubuserslist.repository.model.UserItem
-import br.com.monteoliva.githubuserslist.repository.model.users.UserList
 import br.com.monteoliva.githubuserslist.ui.features.BaseActivity
-import br.com.monteoliva.githubuserslist.viewmodel.UserInformationViewModel
+import br.com.monteoliva.githubuserslist.ui.features.list.UserListActivity
+import br.com.monteoliva.githubuserslist.viewmodel.UserInfoViewModel
 
 class UserInformationActivity : BaseActivity<ActivityUserInformationBinding>() {
-    private val viewModel : UserInformationViewModel by viewModels()
+    private val viewModel : UserInfoViewModel by viewModels()
     private var userName : String? = null
 
     override fun getLayoutId(): Int = R.layout.activity_user_information
@@ -27,14 +28,21 @@ class UserInformationActivity : BaseActivity<ActivityUserInformationBinding>() {
     }
 
     override fun initViewModel() {
-        viewModel.getUserInformation(userName.toString()).observerOnce {
-            it.wrapperResult { data ->
-                when (data) {
-                    is UserItem -> loadData(data)
-                    is String   -> errorMsg(data.toString())
-                }
-            }
+        viewModel.apply {
+
+
+
+
         }
+
+//        viewModel.getUserInformation(userName.toString()).observerOnce {
+//            it.wrapperResult { data ->
+//                when (data) {
+//                    is UserItem -> loadData(data)
+//                    is String   -> errorMsg(data.toString())
+//                }
+//            }
+//        }
     }
 
     private fun loadData(item: UserItem) {
@@ -64,9 +72,11 @@ class UserInformationActivity : BaseActivity<ActivityUserInformationBinding>() {
 
     override fun setLoading(isLoading: Boolean) { binding?.progressInfo?.visibility(isLoading) }
     override fun redirectActivity(userLogin: String) {
+        Intent(this, UserListActivity::class.java).apply {
+            startActivity(this)
+            finish()
+
+        }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }
