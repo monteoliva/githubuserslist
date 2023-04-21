@@ -5,11 +5,11 @@ import androidx.activity.viewModels
 
 import br.com.monteoliva.githubuserslist.R
 import br.com.monteoliva.githubuserslist.databinding.ActivityUserInformationBinding
-import br.com.monteoliva.githubuserslist.repository.core.extensions.Variables
-import br.com.monteoliva.githubuserslist.repository.core.extensions.observerOnce
+import br.com.monteoliva.githubuserslist.repository.core.extensions.*
+import br.com.monteoliva.githubuserslist.repository.model.UserItem
+import br.com.monteoliva.githubuserslist.repository.model.users.UserList
 import br.com.monteoliva.githubuserslist.ui.features.BaseActivity
 import br.com.monteoliva.githubuserslist.viewmodel.UserInformationViewModel
-import br.com.monteoliva.githubuserslist.viewmodel.UserRepositoriesViewModel
 
 class UserInformationActivity : BaseActivity<ActivityUserInformationBinding>() {
     private val viewModel : UserInformationViewModel by viewModels()
@@ -28,17 +28,41 @@ class UserInformationActivity : BaseActivity<ActivityUserInformationBinding>() {
 
     override fun initViewModel() {
         viewModel.getUserInformation(userName.toString()).observerOnce {
+            it.wrapperResult { data ->
+                when (data) {
+                    is UserItem -> loadData(data)
+                    is String   -> errorMsg(data.toString())
+                }
+            }
+        }
+    }
+
+    private fun loadData(item: UserItem) {
+        binding?.apply {
+            appBarInfo.navHeader.let { info ->
+                item.avatarUrl?.let          { info.imageView.loadImage(baseContext, it) }
+                item.login?.validation().let {  info.textNavName.text = it}
+
+
+
+
+
+
+
+            }
+
+
 
 
         }
+        setLoading(false)
     }
+
 
     override fun back() {
     }
 
-    override fun setLoading(isLoading: Boolean) {
-    }
-
+    override fun setLoading(isLoading: Boolean) { binding?.progressInfo?.visibility(isLoading) }
     override fun redirectActivity(userLogin: String) {
     }
 

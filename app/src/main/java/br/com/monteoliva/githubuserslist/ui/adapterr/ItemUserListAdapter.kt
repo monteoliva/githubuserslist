@@ -44,7 +44,7 @@ class ItemUserListAdapter : RecyclerView.Adapter<ItemUserListAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: UserItem = getItem(position)
-        val userLogin = item.login?.validation()
+        val userLogin      = item.login?.validation()
         holder.apply {
             ownerName.text = userLogin
             itemView.apply {
