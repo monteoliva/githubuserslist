@@ -11,7 +11,6 @@ import br.com.monteoliva.githubuserslist.repository.core.extensions.Variables
 import br.com.monteoliva.githubuserslist.repository.core.extensions.observerOnce
 import br.com.monteoliva.githubuserslist.repository.core.extensions.wrapperResult
 import br.com.monteoliva.githubuserslist.repository.model.repositories.UserRepositories
-import br.com.monteoliva.githubuserslist.ui.adapterr.ItemUserListAdapter
 import br.com.monteoliva.githubuserslist.ui.adapterr.ItemUserRepoAdapter
 import br.com.monteoliva.githubuserslist.ui.features.BaseFragment
 import br.com.monteoliva.githubuserslist.viewmodel.UserRepoViewModel
@@ -51,7 +50,8 @@ class FragmentUserRepo : BaseFragment<FragmentListBinding>() {
     }
 
     private fun loadData(items: UserRepositories) {
-
+        itemAdapter?.updateList(items)
+        setLoading(false)
     }
 
     companion object {

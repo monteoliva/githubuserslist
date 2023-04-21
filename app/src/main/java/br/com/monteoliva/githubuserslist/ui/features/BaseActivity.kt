@@ -63,6 +63,7 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
     fun setActionBarTitle(@StringRes title: Int)    { actionBar?.title    = getString(title) }
     fun setActionBarSubTitle(title: String)         { actionBar?.subtitle = title }
     fun setActionBarSubTitle(@StringRes title: Int) { actionBar?.subtitle = getString(title) }
+    fun setActionBarHomeButton()                    { actionBar?.setDisplayHomeAsUpEnabled(true) }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -72,6 +73,11 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
         else {
             super.onKeyDown(keyCode, event)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        back()
+        return true
     }
 
     private fun errorInternet() {

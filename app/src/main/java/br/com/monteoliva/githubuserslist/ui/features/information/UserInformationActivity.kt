@@ -24,6 +24,7 @@ class UserInformationActivity : BaseActivity<ActivityUserInformationBinding>() {
         binding?.let {
             setupToolBar(it.appBarInfo.toolbarApp)
             setActionBarTitle(R.string.title_user_info)
+            setActionBarHomeButton()
         }
     }
 

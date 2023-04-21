@@ -41,7 +41,6 @@ class FragmentUserInfo : BaseFragment<FragmentInfoBinding>() {
                 item.login?.validation().let {  it1 -> textNavName.text = it1}
             }
         }
-        setLoading(false)
     }
 
     companion object {

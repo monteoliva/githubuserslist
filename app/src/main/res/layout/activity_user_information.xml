@@ -28,6 +28,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimens_8"
                 android:text="@string/title_user_repos"
                 android:padding="@dimen/dimens_5"
                 style="@style/progress" />
