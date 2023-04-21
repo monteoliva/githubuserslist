@@ -16,7 +16,7 @@ import br.com.monteoliva.githubuserslist.ui.features.list.UserListActivity
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_splash
-    override fun initViews(savedInstanceState: Bundle?) { load() }
+    override fun initViews() { load() }
     override fun initViewModel() {}
     override fun back() {}
     override fun setLoading(isLoading: Boolean) {}
@@ -26,7 +26,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, UserListActivity::class.java))
             finish()
-            overridePendingTransition(R.anim.lefttoright, R.anim.stable)
+            animRightToLeft()
         }, SECONDS)
     }
 

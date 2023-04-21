@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_190"
+        android:background="@android:color/transparent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:padding="@dimen/dimens_16"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimens_2"
+            android:background="@android:color/transparent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageNavView"
+                android:layout_width="@dimen/dimens_150"
+                android:layout_height="@dimen/dimens_150"
+                android:src="@mipmap/ic_launcher"
+                tools:ignore="ContentDescription"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/white" />
+            <TextView
+                android:id="@+id/textNavName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/dimens_10"
+                android:layout_gravity="center_vertical"
+                android:text=""
+                tools:text="Claudio"
+                style="@style/userInfo" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

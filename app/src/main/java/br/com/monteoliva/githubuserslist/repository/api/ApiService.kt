@@ -12,8 +12,7 @@ import br.com.monteoliva.githubuserslist.repository.model.users.UserList
 
 interface ApiService {
     @GET("/search/users")
-    suspend fun getUserSearch(
-        @Query("q") q: String) : Response<UserSearch?>
+    suspend fun getUserSearch(@Query("q") q: String) : Response<UserSearch?>
 
     @GET("/users")
     suspend fun getUserList() : Response<UserList?>

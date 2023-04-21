@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:padding="5dp"
         tools:text="Stars"
-        android:textColor="@color/colorText" />
+        style="@style/item1" />
 
     <View
         android:layout_width="1dp"
@@ -29,6 +29,6 @@
         android:padding="5dp"
         android:gravity="center"
         tools:text="10.000"
-        android:textColor="@color/colorText" />
+        style="@style/item1" />
 
 </LinearLayout>

@@ -15,12 +15,25 @@
             android:background="@android:color/transparent">
             <include
                 android:id="@+id/app_bar_info"
-                layout="@layout/app_bar_info"
+                layout="@layout/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
             <FrameLayout
                 android:id="@+id/info_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimens_5"
+                android:background="@android:color/transparent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_user_repos"
+                android:padding="@dimen/dimens_5"
+                style="@style/progress" />
+
+            <FrameLayout
+                android:id="@+id/repo_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"

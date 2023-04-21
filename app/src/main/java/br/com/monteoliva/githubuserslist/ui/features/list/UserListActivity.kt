@@ -17,7 +17,7 @@ import br.com.monteoliva.githubuserslist.ui.features.information.UserInformation
 @AndroidEntryPoint
 class UserListActivity : BaseActivity<ActivityUserListBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_user_list
-    override fun initViews(savedInstanceState: Bundle?) {
+    override fun initViews() {
         binding?.let {
             setupToolBar(it.appBar.toolbarApp)
             setActionBarTitle(R.string.title_user_list)
@@ -37,12 +37,19 @@ class UserListActivity : BaseActivity<ActivityUserListBinding>() {
     }
 
     override fun initViewModel() { loadUserList() }
-    override fun back() { finish() }
+    override fun back() {
+        animLeftToRight()
+        finish()
+    }
     override fun setLoading(isLoading: Boolean) { binding?.progressList?.visibility(isLoading) }
     override fun redirectActivity(userLogin: String) {
+        val bundle = Bundle().apply {
+            putString(Variables.USER_LOGIN, userLogin)
+        }
         Intent(baseContext, UserInformationActivity::class.java).apply {
-            putExtra(Variables.USER_LOGIN, userLogin)
+            putExtras(bundle)
             startActivity(this)
+            finish()
             animRightToLeft()
         }
     }

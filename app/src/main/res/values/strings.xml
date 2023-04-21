@@ -16,6 +16,7 @@
     <string name="error1">Falha de comunicação com o Servidor</string>
     <string name="error2">Ocorreu uma falha desconhecida</string>
     <string name="txt_find">Pesquisar usuário</string>
+    <string name="internet_error">Este aplicativo necessita de acesso a Internet. Por favor verifique sua conexão e tente novamente.</string>
 
     <!-- -->
     <string name="title_user_list">Lista de Usuários</string>

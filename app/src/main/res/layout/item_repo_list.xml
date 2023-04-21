@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="14dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:elevation="6dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/dimens_10"
+        android:background="@android:color/transparent">
+        <TextView
+            android:id="@+id/repoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/txt_repo_name"
+            style="@style/item1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_20"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:background="@android:color/transparent">
+            <br.com.monteoliva.githubuserslist.ui.components.BoxData
+                android:id="@+id/starsNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                custom:titleTxt="@string/txt_stars" />
+            <br.com.monteoliva.githubuserslist.ui.components.BoxData
+                android:id="@+id/forksNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/dimens_10"
+                custom:titleTxt="@string/txt_forks" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

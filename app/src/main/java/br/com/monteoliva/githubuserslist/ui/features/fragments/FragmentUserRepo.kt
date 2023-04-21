@@ -3,23 +3,23 @@ package br.com.monteoliva.githubuserslist.ui.features.fragments
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import br.com.monteoliva.githubuserslist.R
 import dagger.hilt.android.AndroidEntryPoint
 
-import br.com.monteoliva.githubuserslist.R
 import br.com.monteoliva.githubuserslist.databinding.FragmentListBinding
 import br.com.monteoliva.githubuserslist.repository.core.extensions.Variables
 import br.com.monteoliva.githubuserslist.repository.core.extensions.observerOnce
 import br.com.monteoliva.githubuserslist.repository.core.extensions.wrapperResult
-import br.com.monteoliva.githubuserslist.repository.model.search.UserSearch
+import br.com.monteoliva.githubuserslist.repository.model.repositories.UserRepositories
 import br.com.monteoliva.githubuserslist.ui.adapterr.ItemUserListAdapter
-import br.com.monteoliva.githubuserslist.ui.features.BaseActivity
+import br.com.monteoliva.githubuserslist.ui.adapterr.ItemUserRepoAdapter
 import br.com.monteoliva.githubuserslist.ui.features.BaseFragment
-import br.com.monteoliva.githubuserslist.viewmodel.UserSearchViewModel
+import br.com.monteoliva.githubuserslist.viewmodel.UserRepoViewModel
 
 @AndroidEntryPoint
-class FragmentUserSearch  : BaseFragment<FragmentListBinding>() {
-    private val viewModel : UserSearchViewModel by viewModels()
-    private var itemAdapter: ItemUserListAdapter? = null
+class FragmentUserRepo : BaseFragment<FragmentListBinding>() {
+    private val viewModel : UserRepoViewModel by viewModels()
+    private var itemAdapter: ItemUserRepoAdapter? = null
     private var userName : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,12 +29,7 @@ class FragmentUserSearch  : BaseFragment<FragmentListBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_list
     override fun initViews() {
-        ItemUserListAdapter().apply {
-            onItemClicked = { redirectInfo(it) }
-        }.also {
-            itemAdapter = it
-        }
-
+        ItemUserRepoAdapter().also { itemAdapter = it }
         binding?.apply {
             rvList.apply {
                 setHasFixedSize(true)
@@ -44,28 +39,23 @@ class FragmentUserSearch  : BaseFragment<FragmentListBinding>() {
         }
     }
 
-    override fun initViewModel() { updateList(userName.toString()) }
-
-    private fun updateList(user: String) {
-        viewModel.getUserSearch(user).observerOnce {
+    override fun initViewModel() {
+        viewModel.getUserRepositories(userName.toString()).observerOnce {
             it.wrapperResult { data ->
-                when (data) {
-                    is UserSearch -> loadList(data)
-                    is String     -> errorMsg(data.toString())
+                when(data) {
+                    is UserRepositories -> loadData(data)
+                    is String           -> errorMsg(data.toString())
                 }
             }
         }
     }
 
-    private fun loadList(data: UserSearch) {
-        itemAdapter?.updateList(data.items)
-        setLoading(false)
+    private fun loadData(items: UserRepositories) {
+
     }
 
-    private fun redirectInfo(userLogin: String) { (activity as? BaseActivity<*>)?.redirectActivity(userLogin) }
-
     companion object {
-        fun newInstance(user: String) : FragmentUserSearch = FragmentUserSearch().apply {
+        fun newInstance(user: String) : FragmentUserRepo = FragmentUserRepo().apply {
             arguments = Bundle().apply { putString(Variables.USER_LOGIN, user) }
         }
     }

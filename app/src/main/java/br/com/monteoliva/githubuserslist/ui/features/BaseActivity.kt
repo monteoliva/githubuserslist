@@ -15,30 +15,37 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 import br.com.monteoliva.githubuserslist.R
-import br.com.monteoliva.githubuserslist.repository.core.extensions.leftToRight
-import br.com.monteoliva.githubuserslist.repository.core.extensions.rightToLeft
-import br.com.monteoliva.githubuserslist.repository.core.extensions.topToBottom
-import br.com.monteoliva.githubuserslist.repository.core.extensions.bottomToTop
+import br.com.monteoliva.githubuserslist.repository.core.extensions.*
 
 abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
     protected var binding: T? = null
     private var actionBar: ActionBar? = null
+    private var isInternet: Boolean = false
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, getLayoutId())
-        startInitViews(savedInstanceState)
+
+        baseContext.isOnline().let {
+            if (!it) { errorInternet() }
+            else {
+                isInternet = true
+                startInitViews()
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        startInitViewModel()
+        if (isInternet) { startInitViewModel() }
     }
 
-    private fun startInitViews(savedInstanceState: Bundle?) {
-        Handler(Looper.getMainLooper()).postDelayed({ initViews(savedInstanceState) }, 60)
+    private fun startInitViews() {
+        Handler(Looper.getMainLooper()).postDelayed({ initViews() }, 60)
     }
 
     private fun startInitViewModel() {
@@ -64,6 +71,19 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
         }
         else {
             super.onKeyDown(keyCode, event)
+        }
+    }
+
+    private fun errorInternet() {
+        setLoading(false)
+        AlertDialog.Builder(this, R.style.AlertDialogTheme).apply {
+            setCancelable(false)
+            setMessage(R.string.internet_error)
+            setPositiveButton(getString(R.string.btn_ok)) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                finishAffinity()
+            }
+            create().show()
         }
     }
 
@@ -112,7 +132,7 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
 
     @LayoutRes
     abstract fun getLayoutId() : Int
-    abstract fun initViews(savedInstanceState: Bundle?)
+    abstract fun initViews()
     abstract fun initViewModel()
     abstract fun back()
     abstract fun setLoading(isLoading: Boolean)

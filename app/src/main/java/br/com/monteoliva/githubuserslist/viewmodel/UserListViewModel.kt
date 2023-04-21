@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-import br.com.monteoliva.githubuserslist.repository.core.repositories.UserListRepository
+import br.com.monteoliva.githubuserslist.repository.core.RepositoryServer
 import br.com.monteoliva.githubuserslist.repository.model.WsResult
 import br.com.monteoliva.githubuserslist.repository.model.users.UserList
 
 @HiltViewModel
-class UserListViewModel @Inject constructor(private val repository: UserListRepository) : ViewModel() {
+class UserListViewModel @Inject constructor(private val repository: RepositoryServer) : ViewModel() {
     val pageLoading: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
 
     fun isLoading(isLoading: Boolean) {
