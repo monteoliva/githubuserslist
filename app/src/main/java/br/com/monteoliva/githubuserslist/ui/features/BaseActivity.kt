@@ -29,7 +29,7 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, getLayoutId())
-        startInitViews()
+        startInitViews(savedInstanceState)
     }
 
     override fun onResume() {
@@ -37,8 +37,8 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
         startInitViewModel()
     }
 
-    private fun startInitViews() {
-        Handler(Looper.getMainLooper()).postDelayed({ initViews() }, 60)
+    private fun startInitViews(savedInstanceState: Bundle?) {
+        Handler(Looper.getMainLooper()).postDelayed({ initViews(savedInstanceState) }, 60)
     }
 
     private fun startInitViewModel() {
@@ -112,10 +112,11 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
 
     @LayoutRes
     abstract fun getLayoutId() : Int
-    abstract fun initViews()
+    abstract fun initViews(savedInstanceState: Bundle?)
     abstract fun initViewModel()
     abstract fun back()
     abstract fun setLoading(isLoading: Boolean)
+    abstract fun redirectActivity(userLogin: String)
 
     companion object {
         private const val TAG = "BaseActivity"

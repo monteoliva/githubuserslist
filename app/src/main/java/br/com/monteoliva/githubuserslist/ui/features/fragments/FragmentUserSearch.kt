@@ -1,5 +1,6 @@
 package br.com.monteoliva.githubuserslist.ui.features.fragments
 
+import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -8,16 +9,22 @@ import br.com.monteoliva.githubuserslist.R
 import br.com.monteoliva.githubuserslist.databinding.FragmentListBinding
 import br.com.monteoliva.githubuserslist.repository.core.extensions.observerOnce
 import br.com.monteoliva.githubuserslist.repository.core.extensions.wrapperResult
-import br.com.monteoliva.githubuserslist.repository.model.users.UserList
+import br.com.monteoliva.githubuserslist.repository.model.search.UserSearch
 import br.com.monteoliva.githubuserslist.ui.adapterr.ItemUserListAdapter
 import br.com.monteoliva.githubuserslist.ui.features.BaseActivity
 import br.com.monteoliva.githubuserslist.ui.features.BaseFragment
-import br.com.monteoliva.githubuserslist.viewmodel.UserListViewModel
+import br.com.monteoliva.githubuserslist.viewmodel.UserSearchViewModel
 
 @AndroidEntryPoint
-class FragmentUserList : BaseFragment<FragmentListBinding>() {
-    private val viewModel : UserListViewModel by viewModels()
+class FragmentUserSearch  : BaseFragment<FragmentListBinding>() {
+    private val viewModel : UserSearchViewModel by viewModels()
     private var itemAdapter: ItemUserListAdapter? = null
+    private var userName : String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.getString(USER_NAME).let { userName = it }
+    }
 
     override fun getLayoutId(): Int = R.layout.fragment_list
     override fun initViews() {
@@ -36,33 +43,30 @@ class FragmentUserList : BaseFragment<FragmentListBinding>() {
         }
     }
 
-    override fun initViewModel() {
-        viewModel.apply {
-            isLoading(true)
-            pageLoading.observe(viewLifecycleOwner) {
-                if (it == true) {
-                    userList.observerOnce { result ->
-                        result.wrapperResult { data ->
-                            when (data) {
-                                is UserList -> loadList(data)
-                                is String   -> errorMsg(data.toString())
-                            }
-                        }
-                    }
+    override fun initViewModel() { updateList(userName.toString()) }
+
+    private fun updateList(user: String) {
+        viewModel.getUserSearch(user).observerOnce {
+            it.wrapperResult { data ->
+                when (data) {
+                    is UserSearch -> loadList(data)
+                    is String     -> errorMsg(data.toString())
                 }
             }
         }
     }
 
-    private fun loadList(items: UserList) {
-        itemAdapter?.updateList(items)
+    private fun loadList(data: UserSearch) {
+        itemAdapter?.updateList(data.items)
         setLoading(false)
-        viewModel.isLoading(false)
     }
 
     private fun redirectInfo(userLogin: String) { (activity as? BaseActivity<*>)?.redirectActivity(userLogin) }
 
     companion object {
-        fun newInstance() : FragmentUserList = FragmentUserList()
+        private const val USER_NAME = "userLogin"
+        fun newInstance(user: String) : FragmentUserSearch = FragmentUserSearch().apply {
+            arguments = Bundle().apply { putString(USER_NAME, user) }
+        }
     }
 }

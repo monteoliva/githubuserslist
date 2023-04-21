@@ -2,6 +2,7 @@ package br.com.monteoliva.githubuserslist.ui.features.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,10 +16,11 @@ import br.com.monteoliva.githubuserslist.ui.features.list.UserListActivity
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_splash
-    override fun initViews() { load() }
+    override fun initViews(savedInstanceState: Bundle?) { load() }
     override fun initViewModel() {}
     override fun back() {}
     override fun setLoading(isLoading: Boolean) {}
+    override fun redirectActivity(userLogin: String) {}
 
     private fun load() {
         Handler(Looper.getMainLooper()).postDelayed({

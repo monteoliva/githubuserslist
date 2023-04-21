@@ -19,4 +19,6 @@
 
     <!-- -->
     <string name="title_user_list">Lista de Usuários</string>
+    <string name="title_user_info">Informaçõs do Usuário</string>
+    <string name="title_user_repos">LIsta de Repositórios</string>
 </resources>

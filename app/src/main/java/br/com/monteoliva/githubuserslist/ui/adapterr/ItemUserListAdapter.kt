@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -17,6 +18,8 @@ import br.com.monteoliva.githubuserslist.repository.model.UserItem
 
 class ItemUserListAdapter : RecyclerView.Adapter<ItemUserListAdapter.ViewHolder>()  {
     private var list = emptyList<UserItem>().toMutableList()
+
+    var onItemClicked: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater
@@ -41,19 +44,21 @@ class ItemUserListAdapter : RecyclerView.Adapter<ItemUserListAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: UserItem = getItem(position)
-
+        val userLogin = item.login?.validation()
         holder.apply {
-            ownerName.text = item.login?.validation()
+            ownerName.text = userLogin
             itemView.apply {
                 item.avatarUrl.let { ownerImage.loadImage(context, it.toString()) }
             }
+            btnAction.setOnClickListener { onItemClicked?.invoke(userLogin.toString()) }
         }
     }
 
     private fun getItem(position: Int): UserItem = list[position]
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val ownerName: TextView   = itemView.findViewById(R.id.ownerName)
-        val ownerImage: ImageView = itemView.findViewById(R.id.ownerImage)
+        val ownerName: TextView     = itemView.findViewById(R.id.ownerName)
+        val ownerImage: ImageView   = itemView.findViewById(R.id.ownerImage)
+        val btnAction: LinearLayout = itemView.findViewById(R.id.btnAction)
     }
 }

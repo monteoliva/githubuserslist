@@ -9,7 +9,7 @@ data class UserSearch(
     @SerializedName("incomplete_results")
     @Expose val incompleteResults: Boolean? = null,
     @SerializedName("items")
-    @Expose val items: MutableList<UserItem?>? = null,
+    @Expose val items: MutableList<UserItem>? = null,
     @SerializedName("total_count")
     @Expose val totalCount: Int? = null
 ) : java.io.Serializable

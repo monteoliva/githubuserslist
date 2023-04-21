@@ -11,24 +11,26 @@
     android:layout_marginBottom="10dp"
     android:elevation="6dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cardview_light_background">
-
-        <ImageView
-            android:id="@+id/ownerImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/content_description_item"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"
-            custom:layout_constraintStart_toStartOf="parent"
-            custom:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/ownerName"
