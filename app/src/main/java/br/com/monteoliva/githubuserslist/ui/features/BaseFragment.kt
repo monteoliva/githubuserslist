@@ -1,5 +1,6 @@
 package br.com.monteoliva.githubuserslist.ui.features
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,6 +15,12 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<T: ViewDataBinding> : Fragment() {
     protected var binding: T? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
