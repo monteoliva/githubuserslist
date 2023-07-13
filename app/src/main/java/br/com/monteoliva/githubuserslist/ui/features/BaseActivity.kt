@@ -28,6 +28,10 @@ abstract class BaseActivity<T: ViewDataBinding> : AppCompatActivity() {
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
+
         binding = DataBindingUtil.setContentView(this, getLayoutId())
 
         baseContext.isOnline().let {
