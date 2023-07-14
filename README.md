@@ -2,7 +2,7 @@ GitHub User List
 ====================================================
 Aplicativo para lista de usuários e repositórios do GitHub.
 
-***Utilizando API de repositórios do GitHub (https://api.github.com)***
+***Utilizando API de repositórios do [GitHub](https://api.github.com) (https://api.github.com)***
 
 Tecnologias utilizadas
 ----------------------------------
