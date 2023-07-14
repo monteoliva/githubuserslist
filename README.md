@@ -19,7 +19,7 @@ Tecnologias utilizadas
 - Custom Views
 
 
-License
+Licença
 -------
 
     Copyright 2023 Claudio Monteoliva
